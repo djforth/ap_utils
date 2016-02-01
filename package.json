@@ -1,0 +1,26 @@
+{
+  "name": "@djforth/ap_utils",
+  "version": "1.0.0",
+  "description": "Utilities for Asset pipeline",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djforth/ap_utils.git"
+  },
+  "author": "A Stainforth",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djforth/ap_utils/issues"
+  },
+  "homepage": "https://github.com/djforth/ap_utils#readme",
+  "dependencies": {
+    "chokidar": "^1.4.2",
+    "event-stream": "^3.3.2",
+    "lodash": "^4.1.0",
+    "mkdirp": "^0.5.1",
+    "readdirp": "^2.0.0"
+  }
+}

@@ -6,26 +6,36 @@ var getName =  function(path){
   return _.last(path.split("/"));
 }
 
-module.exports = function(input, change, add){
+module.exports = function(input){
   console.log('watching', input);
   var watcher = chokidar.watch(input, {
     persistent: true
+  })
+  watcher.on('error', function(error) {
+    console.log('Error happened: %j', error);
   });
 
-  watcher.on('change', function(path, stats) {
-    console.log('File %j has been changed', getName(path));
+  obj = {
+    addChange(fn){
+      if(!_.isFunction(fn)) return obj;
+      watcher.on('change', function(path, stats) {
+        console.log('File %j has been changed', getName(path));
+        fn(getName(path), path)
+      });
 
-    if(_.isFunction(change)){
-      change(getName(path), path)
+      return obj;
     }
-  })
-  .on('error', function(error) { console.log('Error happened: %j', error); })
-  .on('add', function(path) {
-    console.log('File %j has been added to watcher', getName(path));
-    if(_.isFunction(add)){
-      add(getName(path), path)
-    }
-  })
+    , onAdd(fn){
+      if(!_.isFunction(fn)) return obj;
 
-  return watcher;
+      watcher.on('add', function(path) {
+        console.log('File %j has been added to watcher', getName(path));
+        fn(getName(path), path);
+      });
+
+      return obj;
+    }
+  }
+
+  return obj;
 }

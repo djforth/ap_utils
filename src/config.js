@@ -16,31 +16,36 @@ function buildConfig(assets, type){
   }
 
   if(assets.assets_out && !_.has("output")) {
-    config.output = path.resolve(pckage.assets.assets_out);
+    config.output = path.resolve(assets.assets_out);
   }
 
   return config;
 }
 
 module.exports = function(defaults, asset){
-  var config, input, output;
+  var config = {}
+  var ip, op;
   var pckage = require(path.resolve("./package.json"));
 
   if(pckage.assets){
     config = _.defaults(buildConfig(pckage.assets, asset), defaults);
+    ip = pckage.assets.assets_in;
+    op = pckage.assets.assets_out;
   }
 
 
   obj = {
       addInput:function(input){
-        if(config.input === path.resolve(pckage.assets.assets_in, type)){
-          config.input = path.resolve(pckage.assets.assets_in, input);
+        if(_.isUndefined(ip)) return obj
+        if(config.input === path.resolve(ip, type)){
+          config.input = path.resolve(ip, input);
         }
       return obj;
     }
     , addOutput:function(output){
-      if(config.output === path.resolve(pckage.assets.assets_out, type)){
-        config.output = path.resolve(pckage.assets.assets_out, output);
+      if(_.isUndefined(op)) return obj
+      if(config.output === path.resolve(op, type)){
+        config.output = path.resolve(op, output);
       }
       return obj;
     }

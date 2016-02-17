@@ -117,3 +117,8 @@ function copyFolder(){
     }
   }
 }
+
+module.exports = {
+    file   : copyFile
+  , folder : copyFolder
+}

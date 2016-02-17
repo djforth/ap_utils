@@ -5,7 +5,7 @@ var fs       = require('fs')
   , path     = require('path')
   , es       = require('event-stream');
 
-export.file = function(path, data, cb){
+exports.file = function(path, data, cb){
   fs.writeFile(path, data, function(err) {
       if(err) {
           return console.error(err);
@@ -16,7 +16,7 @@ export.file = function(path, data, cb){
   });
 };
 
-export.folder = function(path, done){
+exports.folder = function(path, done){
   // console.log('paths', done);
   mkdirp(path, function (err) {
       if (err) console.error(err)

@@ -5,7 +5,7 @@ var fs       = require('fs')
   , path     = require('path')
   , es       = require('event-stream');
 
-module.export = function(original, fileFilter){
+module.exports = function(original, fileFilter){
   var stream = readdirp({ root: original, fileFilter: fileFilter });
   stream
     .on('warn', function (err) {

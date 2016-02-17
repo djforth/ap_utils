@@ -36,12 +36,13 @@ module.exports = function(defaults, asset){
         if(config.input === path.resolve(assets.assets_in, type)){
           config.input = input;
         }
+      return obj;
     }
     , addOutput:function(output){
       if(config.output === path.resolve(assets.assets_out, type)){
         config.output = output;
       }
-
+      return obj;
     }
     , get: function(key){
       return defaults[key]

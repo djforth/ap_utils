@@ -33,14 +33,14 @@ module.exports = function(defaults, asset){
 
   obj = {
       addInput:function(input){
-        if(config.input === path.resolve(assets.assets_in, type)){
-          config.input = input;
+        if(config.input === path.resolve(pckage.assets.assets_in, type)){
+          config.input = path.resolve(pckage.assets.assets_in, input));
         }
       return obj;
     }
     , addOutput:function(output){
-      if(config.output === path.resolve(assets.assets_out, type)){
-        config.output = output;
+      if(config.output === path.resolve(pckage.assets.assets_out, type)){
+        config.output = path.resolve(pckage.assets.assets_out, output));
       }
       return obj;
     }

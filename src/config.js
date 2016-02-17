@@ -37,14 +37,14 @@ module.exports = function(defaults, asset){
   obj = {
       addInput:function(input){
         if(_.isUndefined(ip)) return obj
-        if(config.input === path.resolve(ip, type)){
+        if(config.input === path.resolve(ip, asset)){
           config.input = path.resolve(ip, input);
         }
       return obj;
     }
     , addOutput:function(output){
       if(_.isUndefined(op)) return obj
-      if(config.output === path.resolve(op, type)){
+      if(config.output === path.resolve(op)){
         config.output = path.resolve(op, output);
       }
       return obj;

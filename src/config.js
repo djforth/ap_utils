@@ -11,11 +11,11 @@ var _    = require("lodash")
 
 function buildConfig(assets, type){
   var config  = assets[type] || {}
-  if(assets.assets_in && !_.has("input")) {
+  if(assets.assets_in && !_.has(config, "input")) {
     config.input = path.resolve(assets.assets_in, type);
   }
 
-  if(assets.assets_out && !_.has("output")) {
+  if(assets.assets_out && !_.has(config, "output")) {
     config.output = path.resolve(assets.assets_out);
   }
 

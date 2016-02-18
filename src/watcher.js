@@ -9,7 +9,8 @@ var getName =  function(path){
 module.exports = function(input){
   console.log('watching', input);
   var watcher = chokidar.watch(input, {
-    persistent: true
+      persistent: true
+    , ignored: /[\/\\]\./
   })
   watcher.on('error', function(error) {
     console.log('Error happened: %j', error);

@@ -50,10 +50,10 @@ module.exports = function(defaults, asset){
       return obj;
     }
     , get: function(key){
-      return defaults[key]
+      return config[key]
     }
     , set:function(key, value){
-      defaults[key] = value;
+      config[key] = value;
     }
   }
 

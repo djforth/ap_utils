@@ -23,7 +23,7 @@ function buildConfig(assets, type){
 }
 
 function get_package(){
-  require(path.resolve("./package.json"))
+  return require(path.resolve("./package.json"))
 }
 
 module.exports = function(defaults, asset){

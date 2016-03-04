@@ -22,17 +22,20 @@ function buildConfig(assets, type){
   return config;
 }
 
+function get_package(){
+  require(path.resolve("./package.json"))
+}
+
 module.exports = function(defaults, asset){
   var config = {}
   var ip, op;
-  var pckage = require(path.resolve("./package.json"));
+  var pckage = get_package();
 
   if(pckage.assets){
     config = _.defaults(buildConfig(pckage.assets, asset), defaults);
     ip = pckage.assets.assets_in;
     op = pckage.assets.assets_out;
   }
-
 
   obj = {
       addInput:function(input){

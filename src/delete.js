@@ -4,9 +4,10 @@ var _        = require('lodash')
   , read = require("./read");
 
 exports.folder = function(folder, fileFilter){
-  var stream = read(folder, fileFilter);
+
 
   return function(cb, rmdir){
+    var stream = read(folder, fileFilter);
     rmdir = _.isBoolean(rmdir) ? rmdir : false;
     stream
       .on("end", function(d){

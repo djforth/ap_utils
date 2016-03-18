@@ -35,7 +35,7 @@ function parseJson(json){
 module.exports = function(fp) {
   return {
     readJSON:function(success, error){
-      fs.readFile(fp, (err, data) => {
+      fs.readFile(fp, function(err, data) {
         if (err) {
           console.error(err);
           if(_.isFunction(error)) error(data);

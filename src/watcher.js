@@ -16,7 +16,7 @@ module.exports = function(input){
   });
 
   obj = {
-    addChange(fn){
+    addChange:function(fn){
       if(!_.isFunction(fn)) return obj;
       watcher.on('change', function(path, stats) {
         console.log('File %j has been changed', getName(path));
@@ -25,7 +25,7 @@ module.exports = function(input){
 
       return obj;
     }
-    , onAdd(fn){
+    , onAdd:function(fn){
       if(!_.isFunction(fn)) return obj;
 
       watcher.on('add', function(path) {

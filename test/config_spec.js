@@ -5,9 +5,9 @@ var rewire = require('rewire');
 var Config = rewire('../src/config');
 
 var mock = {
-    assets_in:"path/in"
+    assets_in: "path/in"
   , assets_out: "path/out"
-}
+};
 
 describe('config', function() {
   describe('buildConfig', function() {

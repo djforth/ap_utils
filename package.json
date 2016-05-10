@@ -4,8 +4,15 @@
   "description": "Utilities for Asset pipeline",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint plugin/*.js",
     "test": "mocha",
     "test:watch": "mocha -w"
+  },
+  "eslintConfig": {
+    "extends": "morsedigital",
+    "rules": {
+      "no-console": [0]
+    }
   },
   "repository": {
     "type": "git",
@@ -18,17 +25,23 @@
   },
   "homepage": "https://github.com/djforth/ap_utils#readme",
   "dependencies": {
-    "chokidar": "^1.4.2",
+    "chokidar": "^1.4.3",
     "event-stream": "^3.3.2",
-    "lodash": "^4.1.0",
     "mkdirp": "^0.5.1",
     "readdirp": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "eslint": "^2.9.0",
+    "eslint-config-google": "^0.5.0",
+    "eslint-config-morsedigital": "^1.0.4",
+    "lodash": "^4.12.0",
     "memorystream": "^0.3.1",
     "mocha": "^2.4.5",
     "rewire": "^2.5.1",
-    "sinon": "^1.17.3"
+    "sinon": "^1.17.4"
+  }
+  , "peerDependancies":{
+    "lodash": "^4.*.*"
   }
 }

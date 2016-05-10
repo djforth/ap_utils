@@ -1,6 +1,6 @@
 {
   "name": "@djforth/ap_utils",
-  "version": "2.0.13",
+  "version": "2.1.0",
   "description": "Utilities for Asset pipeline",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,9 @@
   "eslintConfig": {
     "extends": "morsedigital",
     "rules": {
-      "no-console": [0]
+      "no-console": [
+        0
+      ]
     }
   },
   "repository": {
@@ -40,8 +42,8 @@
     "mocha": "^2.4.5",
     "rewire": "^2.5.1",
     "sinon": "^1.17.4"
-  }
-  , "peerDependancies":{
+  },
+  "peerDependancies": {
     "lodash": "^4.*.*"
   }
 }

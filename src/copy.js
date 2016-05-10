@@ -16,8 +16,8 @@ function createDone(callback) {
 }
 
 function pathManager(root){
-  return function(path){
-    return path.resolve(root, path);
+  return function(folder){
+    return path.resolve(root, folder);
   };
 }
 

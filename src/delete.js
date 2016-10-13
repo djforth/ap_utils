@@ -23,7 +23,7 @@ exports.folder = function(folder, fileFilter){
 
 exports.file = function(path){
   fs.access(path, fs.constants.F_OK, function(e){
-    if(!e){
+    if (!e){
       fs.unlinkSync(path);
     }
   });

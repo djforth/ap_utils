@@ -5,7 +5,7 @@ var _        = require('lodash')
 var create   = require('./create')
   , read     = require('./read');
 
-function createDone(callback) {
+function createDone(callback){
   var cbCalled = false;
   return function(err){
     if (!cbCalled){
@@ -21,13 +21,13 @@ function pathManager(root){
   };
 }
 
-function copyFile(source, target) {
+function copyFile(source, target){
   var done, read, write;
 
   var obj = {
     from: function(source){
       read = fs.createReadStream(source);
-      read.on('error', function(err) {
+      read.on('error', function(err){
         done(err);
       });
 
@@ -38,55 +38,55 @@ function copyFile(source, target) {
       write.on('error', function(err){
         done(err);
       });
-      write.on('close', function(){
-        done();
-      });
 
       return obj;
     }
 
     , copy: function(callback){
       done = createDone(callback);
-      if (read && write) read.pipe(write);
+
+      if (read && write){
+        write.on('finish', function(){
+          done();
+        });
+
+        read.pipe(write);
+        write.end();
+      }
       return obj;
     }
   };
 
-  if(source) obj.from(source);
-  if(target) obj.to(target);
+  if (source) obj.from(source);
+  if (target) obj.to(target);
 
   return obj;
 }
 
-function copyFolder(){
-  var done, path, readSt, writeSt;
-  function moveFile(from, to){
-    copyFile()
-      .from(from)
-      .to(to)
-      .copy(function(err){
-        if (err) console.error(err);
-      });
-  }
+function moveFile(from, to){
+  copyFile()
+    .from(from)
+    .to(to)
+    .copy(function(err){
+      if (err) console.error(err);
+    });
+}
 
+function copyFolder(){
+  var done, pathresolve, readSt, writeSt;
   var obj = {
     from: function(from, ext){
       readSt = read(from, ext);
+      return obj;
     }
     , to: function(to){
       create.folder(to); // Creates folder if doesn't exist
-      path = pathManager(to);
+      pathresolve = pathManager(to);
       writeSt = es.writeArray(function(err, array){
         if (err) console.warn(err);
         _.forEach(array, function(entry){
-          copyFile()
-            .from(entry.fullPath)
-            .to(path(entry.path))
-            .copy(function(err){
-              if (err) console.warn(err);
-            });
+          moveFile(entry.fullPath, pathresolve(entry.path));
         });
-
         done();
       });
       return obj;
@@ -98,11 +98,12 @@ function copyFolder(){
       .pipe(es.through(function(entry){
         this.emit('data', entry);
         if (!_.isEmpty(entry.parentDir)){
-          this.pause();
-          create.folder(path(entry.parentDir)
+          var ps = this.pause();
+
+          create.folder(pathresolve(entry.parentDir)
             , function(){
-              this.resume();
-            }.bind(this)
+              ps.resume();
+            }
           );
         }
         return entry;

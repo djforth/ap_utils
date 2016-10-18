@@ -1,10 +1,13 @@
 {
-  "name": "ap_utils",
-  "version": "0.0.0-pre.1",
+  "name": "@djforth/ap_utils",
+  "version": "2.2.0",
   "description": "Utilities for Asset pipeline",
   "main": "index.js",
+  "assets": {
+    "test": "this is a package test"
+  },
   "scripts": {
-    "lint": "eslint plugin/*.js",
+    "lint": "eslint src/*.js",
     "test": "mocha",
     "test:watch": "mocha -w"
   },
@@ -12,6 +15,12 @@
     "extends": "morsedigital",
     "rules": {
       "no-console": [
+        0
+      ],
+      "require-jsdoc": [
+        0
+      ],
+      "no-unused-expressions": [
         0
       ]
     }
@@ -27,23 +36,29 @@
   },
   "homepage": "https://github.com/djforth/ap_utils#readme",
   "dependencies": {
-    "chokidar": "^1.4.3",
+    "chokidar": "^1.6.1",
     "event-stream": "^3.3.2",
     "mkdirp": "^0.5.1",
     "readdirp": "^2.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^2.9.0",
-    "eslint-config-google": "^0.5.0",
-    "eslint-config-morsedigital": "^1.0.4",
-    "lodash": "^4.12.0",
+    "eslint": "^3.8.0",
+    "eslint-config-google": "^0.6.0",
+    "eslint-config-morsedigital": "^1.1.0",
+    "lodash": "^4.16.0",
     "memorystream": "^0.3.1",
-    "mocha": "^2.4.5",
+    "mocha": "^3.1.2",
+    "mocha-eslint": "^3.0.1",
     "rewire": "^2.5.1",
-    "sinon": "^1.17.4"
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0"
   },
   "peerDependancies": {
     "lodash": "^4.*.*"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "keywords": []
 }

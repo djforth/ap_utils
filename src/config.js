@@ -1,12 +1,7 @@
 var _    = require('lodash');
 var path = require('path');
 
-// function setPaths(key, def){
-//   return function(path, obj){
-//     obj[key] =(_.isUndefined(path)) ? def : path;
-//     return obj;
-//   }
-// }
+var getConfig = require('./get_config');
 
 function buildConfig(assets, type){
   var config  = assets[type] || {};
@@ -21,20 +16,12 @@ function buildConfig(assets, type){
   return config;
 }
 
-function get_package(){
-  return require(path.resolve('./package.json'));
-}
-
 module.exports = function(defaults, asset){
-  var config = {};
-  var ip, op;
-  var pckage = get_package();
-
-  if (pckage.assets){
-    config = _.defaults(buildConfig(pckage.assets, asset), defaults);
-    ip = pckage.assets.assets_in;
-    op = pckage.assets.assets_out;
-  }
+  var ip, op, config, rootConfig;
+  rootConfig = getConfig();
+  config = _.defaults(buildConfig(rootConfig, asset), defaults);
+  ip = rootConfig.input;
+  op = rootConfig.output;
 
   var obj = {
     addInput: function(input){

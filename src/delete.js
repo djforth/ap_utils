@@ -9,8 +9,11 @@ exports.folder = function(folder, fileFilter){
     rmdir = _.isBoolean(rmdir) ? rmdir : false;
     stream
       .on('end', function(){
-        if (_.isFunction(cb)) cb();
-        if (rmdir) fs.rmdirSync(folder);
+        if (rmdir){
+          fs.rmdir(folder, ()=>{
+            if (_.isFunction(cb)) cb();
+          });
+        } else if (_.isFunction(cb)) cb();
       })
       .pipe(
         es.mapSync(function(entry){
@@ -21,10 +24,11 @@ exports.folder = function(folder, fileFilter){
   };
 };
 
-exports.file = function(path){
+exports.file = function(path, cb){
   fs.access(path, fs.constants.F_OK, function(e){
     if (!e){
       fs.unlinkSync(path);
+      if (_.isFunction(cb)) cb();
     }
   });
 };

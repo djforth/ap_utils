@@ -12,37 +12,19 @@ var ManageJSON = rewire('../src/manage_json');
 var fs = require('fs');
 chai.use(sinonChai);
 
-var Stubs = require('./utils/stub_function');
-var stubs = Stubs(ManageJSON);
-
-describe('Manage JSON', function() {
-  describe('prepJson', function(){
-    var prepJson;
-    beforeEach(function(){
-      prepJson = ManageJSON.__get__('prepJson');
-    });
-
-    it('should return the correct array', function() {
-      var json = prepJson([{key: 'test', value: 'this is a test'}]);
-      expect(_.isPlainObject(json)).to.be.true;
-      expect(_.has(json, 'test')).to.be.true;
-      expect(json.test).to.equal('this is a test');
-    });
-  });
-
+describe('Manage JSON', function(){
   describe('parseJson', function(){
-    var parseJson;
+    var parseJson, buf, json;
     beforeEach(function(){
+      json = {test: 'this is a test'};
+      buf = Buffer.from(JSON.stringify(json), 'ascii');
       parseJson = ManageJSON.__get__('parseJson');
     });
 
     it('should return the correct array', function(){
       // [{key: 'test', value: 'this is a test'}]
-      var json = parseJson(JSON.stringify({test: 'this is a test'}));
-      expect(_.isArray(json)).to.be.true;
-      var jsn = json[0];
-      expect(jsn.key).to.equal('test');
-      expect(jsn.value).to.equal('this is a test');
+      var json = parseJson(buf);
+      expect(json).to.have.property('test', 'this is a test');
     });
   });
 
@@ -71,7 +53,7 @@ describe('Manage JSON', function() {
         revert();
       });
 
-      it('should call error if no file', function(done) {
+      it('should call error if no file', function(done){
         // let err = sinon.spy();
         let suc = sinon.spy();
         let err_json = ManageJSON(path.resolve('test', 'test22.json'));
@@ -83,9 +65,8 @@ describe('Manage JSON', function() {
         });
       });
 
-      it('should call success if  file', function(done) {
+      it('should call success if  file', function(done){
         let err = sinon.spy();
-
         json_manager.read((data)=>{
           expect(data).to.equal('some json');
           expect(parse).to.have.been.called;
@@ -95,42 +76,38 @@ describe('Manage JSON', function() {
       });
     });
 
-    describe('Write', function() {
+    describe('Write', function(){
       let data, prep, revert;
       before(function(){
-        data = [{key: 'test', value: 'this updated test'}];
-        prep =  sinon.stub().returns({test: 'this updated test'});
-        revert = ManageJSON.__set__('prepJson', prep);
+        data = {'test':'this updated test'};
+        // prep =  sinon.stub().returns({test: 'this updated test'});
+        // revert = ManageJSON.__set__('prepJson', prep);
       });
 
       after(()=>{
-        revert();
         fs.writeFileSync(json_path, JSON.stringify({test: 'this is a test'}));
       });
 
-      it('should call error if write error', function(done) {
+      it('should call error if write error', function(done){
         // let err = sinon.spy();
         let suc = sinon.spy();
         let err_json = ManageJSON(path.resolve('test22', 'test.json'));
 
         err_json.write(data, suc, (err)=>{
           expect(err).to.exist;
-          expect(prep).to.have.been.calledWith(data);
           expect(suc).not.to.have.been.called;
           done();
         });
       });
 
-      it('should call success if  file', function(done) {
+      it('should call success if  file', function(done){
         let err = sinon.spy();
 
         json_manager.write(data, ()=>{
-          expect(prep).to.have.been.calledWith(data);
           expect(err).not.to.have.been.called;
 
           fs.readFile(json_path, function(err, data){
             data = JSON.parse(data.toString());
-            console.log(data.test);
             expect(data).to.have.property('test', "this updated test");
             done();
           });

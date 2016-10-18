@@ -1,5 +1,4 @@
 
-
 module.exports = {
    config: require('./src/config')
  , copy: require('./src/copy')

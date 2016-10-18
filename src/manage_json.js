@@ -1,21 +1,8 @@
 var _        = require('lodash');
 var fs        = require('fs');
 
-function prepJson(json){
-  var process_json = {};
-  _.forEach(json, function(j){
-    process_json[j.key] = j.value;
-  });
-  return process_json;
-}
-
 function parseJson(json){
-  var parsed = [];
-  _.forIn(JSON.parse(json.toString()), function(v, k){
-    parsed.push({key: k, value: v});
-  });
-
-  return parsed;
+  return JSON.parse(json.toString());
 }
 
 module.exports = function(fp){
@@ -33,9 +20,9 @@ module.exports = function(fp){
     }
 
     , write: function(json, success, error){
-      var preped = prepJson(json);
+      // var preped = prepJson(json);
 
-      fs.writeFile(fp, JSON.stringify(preped), function(err){
+      fs.writeFile(fp, JSON.stringify(json), function(err){
         if (err){
           if (_.isFunction(error)) error(err);
           return;

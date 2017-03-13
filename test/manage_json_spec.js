@@ -77,11 +77,9 @@ describe('Manage JSON', function(){
     });
 
     describe('Write', function(){
-      let data, prep, revert;
+      let data;
       before(function(){
-        data = {'test':'this updated test'};
-        // prep =  sinon.stub().returns({test: 'this updated test'});
-        // revert = ManageJSON.__set__('prepJson', prep);
+        data = {'test': 'this updated test'};
       });
 
       after(()=>{
@@ -108,7 +106,7 @@ describe('Manage JSON', function(){
 
           fs.readFile(json_path, function(err, data){
             data = JSON.parse(data.toString());
-            expect(data).to.have.property('test', "this updated test");
+            expect(data).to.have.property('test', 'this updated test');
             done();
           });
         }, err);

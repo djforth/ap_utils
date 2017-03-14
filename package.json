@@ -1,6 +1,6 @@
 {
   "name": "@djforth/ap_utils",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "Utilities for Asset pipeline",
   "main": "index.js",
   "assets": {

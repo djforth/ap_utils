@@ -109,14 +109,18 @@ describe('Copy', function(){
       expect(cb).not.to.have.been.called;
     });
 
-    it('should copy file if to & from set', function(){
+    it('should copy file if to & from set', function(done){
       copyFile
         .from(path.resolve('test', './test_folder', 'test.txt'))
         .to(path.resolve('test', './copy_folder', 'test.txt'))
         .copy(cb);
       expect(fileExists(file)).to.be.true;
       expect(createDone).to.have.been.called;
-      expect(cb).to.have.been.called;
+      setTimeout(()=>{
+        done();
+        expect(cb).to.have.been.called;
+      }, 10)
+      // expect(cb).to.have.been.called;
     });
   });
 

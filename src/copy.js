@@ -25,15 +25,18 @@ function copyFile(source, target){
   var done, read, write;
 
   var obj = {
-    from: function(source){
+    from: function(src){
+      source = src || source;
       read = fs.createReadStream(source);
       read.on('error', function(err){
         done(err);
       });
+      read.setEncoding('utf8');
 
       return obj;
     }
-    , to: function(target){
+    , to: function(tgt){
+      target = tgt || target
       write = fs.createWriteStream(target);
       write.on('error', function(err){
         done(err);
@@ -46,12 +49,10 @@ function copyFile(source, target){
       done = createDone(callback);
 
       if (read && write){
-        write.on('finish', function(){
+        read.on('end', function(){
           done();
         });
-
         read.pipe(write);
-        write.end();
       }
       return obj;
     }

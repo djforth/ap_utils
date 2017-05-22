@@ -8,16 +8,18 @@ var path = require('path');
 var es = require('event-stream');
 
 describe('should read folder', function() {
-  it('should read folder file that match *.txt', function() {
+  it('should read folder file that match *.txt', function(done) {
     Read(path.resolve('./test/test_folder'), '*.txt')
       .pipe(es.mapSync(function(file){
+        done();
         expect(file.name).to.equal('test.txt')
       }));
   });
 
-  it('should read folder file that match *.jpg', function() {
+  it('should read folder file that match *.jpg', function(done) {
     Read(path.resolve('./test/test_folder'), '*.jpg')
       .pipe(es.mapSync(function(file){
+        done();
         expect(file.name).to.equal('brian_blessed.jpg');
       }));
   });

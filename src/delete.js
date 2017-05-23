@@ -21,6 +21,8 @@ exports.folder = function(folder, fileFilter){
           return entry.fullPath;
         })
       );
+
+      return stream;
   };
 };
 

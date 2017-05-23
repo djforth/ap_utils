@@ -56,6 +56,7 @@ function copyFile(source, target){
       }
       return obj;
     }
+    , stream: ()=>write
   };
 
   if (source) obj.from(source);
@@ -115,6 +116,7 @@ function copyFolder(){
       .pipe(writeSt);
       return obj;
     }
+    , stream: ()=>readSt
   };
 
   return obj;

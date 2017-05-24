@@ -74,7 +74,7 @@ function moveFile(from, to){
     });
 }
 
-function copyFolder(){
+function copyFolder(source, target){
   var done, pathresolve, readSt, writeSt;
   var obj = {
     from: function(from, ext){
@@ -116,8 +116,11 @@ function copyFolder(){
       .pipe(writeSt);
       return obj;
     }
-    , stream: ()=>readSt
+    , stream: ()=>writeSt
   };
+
+  if (source) obj.from(source);
+  if (target) obj.to(target);
 
   return obj;
 }
